@@ -6,15 +6,15 @@ class window.Game extends Backbone.Model
     self = @get 'playerHand'
     self.bind 'hit', @handleHit
 
-    # listen to stand events
-      # check if dealer is > 17
-        # if not, keep flipping the dealer until 21
-      # if yes, then we call gameover
-
   handleFlip: -> 
     currentDealerHand = @get 'dealerHand'
     currentDealerHand.first().flip()
     @handleStand()
+
+      # listen to stand events
+      # check if dealer is > 17
+        # if not, keep flipping the dealer until 21
+      # if yes, then we call gameover
 
   handleStand: ->
     currentDealerHandTwo = @get 'dealerHand'
