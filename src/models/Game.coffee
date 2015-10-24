@@ -3,8 +3,10 @@ class window.Game extends Backbone.Model
     _.bindAll @
     @set 'dealerHand', params.dealerHand
     @set 'playerHand', params.playerHand
+    @set 'deck', params.deck
     self = @get 'playerHand'
     self.bind 'hit', @handleHit
+    self.bind 'split', @splitHand
 
   handleFlip: -> 
     currentDealerHand = @get 'dealerHand'
@@ -66,6 +68,13 @@ class window.Game extends Backbone.Model
 
     if currentPlayerBest == currentDealerBest
       alert "Bummer, you tied!"
+
+  splitHand: -> 
+    if 
+    selfThree = @get 'playerHand'
+    selfFour = @get 'deck'
+    newHand = new Hand [selfThree.pop(), selfFour.pop()], selfFour
+    selfThree.hit();
 
 
 

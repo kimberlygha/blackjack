@@ -1,13 +1,15 @@
 class window.Playerhands extends Backbone.Collection
   model: Card
 
-  initialize: (array) ->
-
+  initialize: ->
+    
+    
   defaults:
     totalHands: []
 
     # check if both cards are the same when first dealt
       # if yes, then push this hand to the playerhand collections
+      # can only do this 3 times as max
     # GAME MODEL CHANGES:
       #update "handleHit" to work on the first playerHand in the playerhand collections
       #update "gameOver" to only do lose and tie IF there are no more playerhands left

@@ -7,6 +7,7 @@ class window.App extends Backbone.Model
     @set 'dealerHand', deck.dealDealer()
     playerHand = @get 'playerHand'
     dealerHand = @get 'dealerHand'
-    gameModel = new Game(playerHand: playerHand, dealerHand: dealerHand)
+    deck = @get 'deck'
+    gameModel = new Game(playerHand: playerHand, dealerHand: dealerHand, deck: deck)
     @set 'gameModel', gameModel
 
