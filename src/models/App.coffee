@@ -3,11 +3,16 @@
 class window.App extends Backbone.Model
   initialize: ->
     @set 'deck', deck = new Deck()
-    @set 'playerHand', deck.dealPlayer()
+    newPlayer = deck.dealPlayer()
+    console.log newPlayer
+    newPlayerArr = []
+    newPlayerArr.push newPlayer
+    @set 'playerHands', newPlayerArr
     @set 'dealerHand', deck.dealDealer()
-    playerHand = @get 'playerHand'
+    playerHands = @get 'playerHands'
     dealerHand = @get 'dealerHand'
+    playerHands = @get 'playerHands'
     deck = @get 'deck'
-    gameModel = new Game(playerHand: playerHand, dealerHand: dealerHand, deck: deck)
+    gameModel = new Game(playerHands: playerHands, dealerHand: dealerHand, deck: deck)
     @set 'gameModel', gameModel
 

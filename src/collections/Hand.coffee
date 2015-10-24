@@ -3,15 +3,13 @@ class window.Hand extends Backbone.Collection
 
   initialize: (array, @deck, @isDealer) ->
     _.bindAll @
+
     @checkForDups(array) 
   
   hit: ->
     @add(@deck.pop())
     @trigger 'hit', @
     @last()
-
-  stand: -> 
-    @trigger 'stand', @
 
   hasAce: -> @reduce (memo, card) ->
     memo or card.get('value') is 1
@@ -28,9 +26,8 @@ class window.Hand extends Backbone.Collection
     [@minScore(), @minScore() + 10 * @hasAce()]
 
   checkForDups: (array) ->  
-    if array[0].get('value') is array[1].get('value')
-      if window.confirm 'would you like to split?'
-        splitHand = true
-        @trigger 'split' 
-    else 
-      
+    if array[0].get('value') is array[1].get('value') then @trigger 'split'
+      # if window.confirm 'would you like to split?'
+      #   splitHand = true
+       
+

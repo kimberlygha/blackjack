@@ -6,15 +6,19 @@ class window.AppView extends Backbone.View
   '
 
   events:
-    'click .hit-button': -> @model.get('playerHand').hit()
+    'click .hit-button': -> @model.get('playerHands')[0].hit()
     'click .stand-button': ->  @model.get('gameModel').handleFlip()
 
   initialize: ->
     @render()
+    @model.get('gameModel').bind 'splitHand', @render
 
   render: ->
+    @model.get('gameModel').set 'betAmount', window.prompt 'How much would you like to bet? 10, 50, 100, or 500?'
     @$el.children().detach()
     @$el.html @template()
-    @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
+    test = @model.get('gameModel').get 'playerHands'
+    for hand in test
+      @$('.player-hand-container').append new HandView(collection: hand).el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
 
