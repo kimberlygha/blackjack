@@ -9,6 +9,7 @@ class window.App extends Backbone.Model
     dealerHand = @get 'dealerHand'
     gameModel = new Game(playerHand: playerHand, dealerHand: dealerHand)
     @set 'gameModel', gameModel
+    # @gameModel.bind 'win', 
 
 # add a collection (in initialize) to the app? have it be the hands
 # Model should listen to a 'stand' occuring on hand.cofdee
