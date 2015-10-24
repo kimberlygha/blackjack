@@ -52,35 +52,43 @@ class window.Game extends Backbone.Model
   # app view listens to game over and updates
   handleGameover: -> 
     currentPlayerScoreForGameOver = @get('playerHands')[0].scores()
-    if currentPlayerScoreForGameOver isnt null 
+    if currentPlayerScoreForGameOver[0] isnt currentPlayerScoreForGameOver[1]
       currentPlayerBest = if currentPlayerScoreForGameOver[1] < 21 then currentPlayerScoreForGameOver[1] else currentPlayerScoreForGameOver[0]
     else 
       currentPlayerBest = currentPlayerScoreForGameOver[0]
 
     currentDealerScoreForGameOver = @get('dealerHand').scores()
-    if currentDealerScoreForGameOver isnt null 
+    if currentDealerScoreForGameOver[0] isnt currentDealerScoreForGameOver[1] 
       currentDealerBest = if currentDealerScoreForGameOver[1] < 21 then currentDealerScoreForGameOver[1] else currentDealerScoreForGameOver[0]
     else 
       currentDealerBest = currentDealerScoreForGameOver[0]
 
-    # @trigger 'lose' if currentPlayerBest < currentDealerBest or currentPlayerBest > 21
-    if currentPlayerBest < currentDealerBest or currentPlayerBest > 21 
+    # game logic to handle win lose or tie
+    if currentPlayerBest > 21
       newScoreLose =  @get('playerScore') - @get('betAmount')
       @set 'playerScore', newScoreLose
-      alert "you suuuuuuck! Your score is now: " + @get 'playerScore'
+      alert "you suuuuuuck! Your score is now: " + newScoreLose
       @trigger 'gameEnd', @
-      
 
-    if currentPlayerBest > currentDealerBest and currentPlayerBest < 21
+    else if currentPlayerBest < currentDealerBest and currentDealerBest < 21
+      newScoreLose =  @get('playerScore') - @get('betAmount')
+      @set 'playerScore', newScoreLose
+      alert "you suuuuuuck! Your score is now: " + newScoreLose
+      @trigger 'gameEnd', @
+
+    else if currentPlayerBest > currentDealerBest or currentDealerBest > 21
       newScoreWin =  @get('playerScore') + @get('betAmount')
       @set 'playerScore', newScoreWin
-      alert "you win!! Your score is now: " + @get 'playerScore'
+      alert "you win!! Your score is now: " + parseInt(newScoreWin, 10)
       @trigger 'gameEnd', @
       
-    if currentPlayerBest == currentDealerBest
+    else if currentPlayerBest == currentDealerBest
       currentScore = @get 'playerScore'
       alert "Bummer, you tied! Your score is now: " + currentScore
       @trigger 'gameEnd', @
+
+    else 
+      alert 'Error occured. Play again'
 
   splitHand: -> 
     selfThree = @get 'playerHands'

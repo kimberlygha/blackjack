@@ -10,10 +10,13 @@ class window.AppView extends Backbone.View
     'click .stand-button': ->  @model.get('gameModel').handleFlip()
 
   initialize: ->
+    _.bindAll @
     @render()
+    @model.get('gameModel').bind 'gameEnd', @render
     @model.get('gameModel').bind 'splitHand', @render
 
   render: ->
+    console.log 'I ran'
     @model.get('gameModel').set 'betAmount', window.prompt 'How much would you like to bet? 10, 50, 100, or 500?'
     @$el.children().detach()
     @$el.html @template()
