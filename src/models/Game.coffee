@@ -15,18 +15,21 @@ class window.Game extends Backbone.Model
     currentDealerHand = @get 'dealerHand'
     currentDealerHand.first().flip()
     @handleStand()
+
   handleStand: ->
-    if currentDealerHand.scores()[0] or currentDealerHand.scores()[1]
-      if currentDealerHand.scores()[0] < 17
-        currentDealerHand.hit()
+    currentDealerHandTwo = @get 'dealerHand'
+    if currentDealerHandTwo.scores()[0] is currentDealerHandTwo.scores()[1]
+      if currentDealerHandTwo.scores()[0] < 17
+        currentDealerHandTwo.hit()
         @handleStand()
       else
         @handleGameover()
     else 
-      if currentDealerHand.scores()[1] < 21 and currentDealerHand.scores()[1] > 17
+      if currentDealerHandTwo.scores()[1] < 21 and currentDealerHandTwo.scores()[1] > 17
         @handleGameover()
-      else if currentDealerHand.scores()[0] < 17 
-        currentDealerHand.hit()
+      else if currentDealerHandTwo.scores()[0] < 17 
+        currentDealerHandTwo.hit()
+        @handleStand()
       else 
         @handleGameover()
 
@@ -43,13 +46,13 @@ class window.Game extends Backbone.Model
   # app view listens to game over and updates
   handleGameover: -> 
     currentPlayerScoreForGameOver = @get('playerHand').scores()
-    if currentPlayerScoreForGameOver != null 
+    if currentPlayerScoreForGameOver isnt null 
       currentPlayerBest = if currentPlayerScoreForGameOver[1] < 21 then currentPlayerScoreForGameOver[1] else currentPlayerScoreForGameOver[0]
     else 
       currentPlayerBest = currentPlayerScoreForGameOver[0]
 
     currentDealerScoreForGameOver = @get('dealerHand').scores()
-    if currentDealerScoreForGameOver != null 
+    if currentDealerScoreForGameOver isnt null 
       currentDealerBest = if currentDealerScoreForGameOver[1] < 21 then currentDealerScoreForGameOver[1] else currentDealerScoreForGameOver[0]
     else 
       currentDealerBest = currentDealerScoreForGameOver[0]
