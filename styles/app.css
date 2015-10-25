@@ -1,16 +1,32 @@
+body {
+  background-image: url("../img/poker-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
+
 .card {
   float: left;
   border: solid 1px black;
-  width: 100px;
+  width: 120px;
   border-radius: 5px;
-  height: 140px;
-  margin-right: 20px;
+  height: 170px;
+  margin-left: 30px;
 }
 
 .covered {
-  background-color: black;
+  background-color: white;
 }
 
 .hand {
   overflow: auto;
+  margin-left: 440;
+}
+
+.hit-button {
+  margin: 20px 0px 0px 560;
+}
+
+.stand-button {
+  margin: 20px 0px 0px 10px;
 }

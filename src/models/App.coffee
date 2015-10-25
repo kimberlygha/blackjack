@@ -27,6 +27,5 @@ class window.App extends Backbone.Model
     playerHandsOnGameEnd = @get 'playerHands'
     dealerHandOnGameEnd = @get 'dealerHand'
     test = @get('gameModel')
-    console.log(test)
     test.set 'playerHands', playerHandsOnGameEnd
     test.set 'dealerHand', dealerHandOnGameEnd

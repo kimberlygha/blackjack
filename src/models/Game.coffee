@@ -77,9 +77,11 @@ class window.Game extends Backbone.Model
       @trigger 'gameEnd', @
 
     else if currentPlayerBest > currentDealerBest or currentDealerBest > 21
-      newScoreWin =  @get('playerScore') + @get('betAmount')
+      temp1 = @get('playerScore')
+      temp2 = @get('betAmount')
+      newScoreWin =  parseInt(temp1, 10) + parseInt(temp2, 10)
       @set 'playerScore', newScoreWin
-      alert "you win!! Your score is now: " + parseInt(newScoreWin, 10)
+      alert "you win!! Your score is now: " + newScoreWin
       @trigger 'gameEnd', @
       
     else if currentPlayerBest == currentDealerBest

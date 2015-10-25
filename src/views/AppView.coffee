@@ -17,7 +17,7 @@ class window.AppView extends Backbone.View
 
   render: ->
     console.log 'I ran'
-    @model.get('gameModel').set 'betAmount', window.prompt 'How much would you like to bet? 10, 50, 100, or 500?'
+    @model.get('gameModel').set 'betAmount', parseInt(window.prompt 'How much would you like to bet? 10, 50, 100, or 500?', 10)
     @$el.children().detach()
     @$el.html @template()
     test = @model.get('gameModel').get 'playerHands'
